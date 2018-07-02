@@ -74,8 +74,8 @@ syntax enable
 set tabstop=2
 set shiftwidth=2
 set expandtab
-"set number
-"set relativenumber
+set number
+set relativenumber
 
 " Vim8 only:
 " Plugins need to be added to runtimepath before helptags can be generated.

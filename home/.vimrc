@@ -21,6 +21,7 @@ Plugin 'VundleVim/Vundle.vim'
 """""
 " Esthetics and Syntax and Workflow
 Plugin 'vim-airline/vim-airline'
+Plugin 'edkolev/tmuxline.vim'
 " amazing async linter
 Plugin 'w0rp/ale' 
 Plugin '907th/vim-auto-save'
@@ -29,7 +30,7 @@ Plugin 'Xuyuanp/nerdtree-git-plugin'
 Plugin 'vim-voom/VOoM'
 "Plugin 'fholgado/minibufexpl.vim'
 "Plugin 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
-Plugin 'scrooloose/syntastic'
+"Plugin 'scrooloose/syntastic'
 """""
 " Git
 Plugin 'tpope/vim-fugitive'
@@ -44,6 +45,9 @@ Plugin 'matcatc/vim-asciidoc-folding'
 Plugin 'pearofducks/ansible-vim'
 Plugin 'chase/vim-ansible-yaml'
 """""
+" Yaml
+Plugin 'pedrohdz/vim-yaml-folds'
+""""
 " Tmux and Terminals
 "Plugin 'tpope/vim-tbone'
 "Plugin 'sjl/vitality.vim'
@@ -231,6 +235,24 @@ let g:ansible_options = {'documentation_mapping': '<C-K>'}
 "if has('mouse_sgr')
 " set ttymouse=sgr
 "endif
+"
+
+""""""
+" Red Hat GPTE
+
+" Shortcuts for assessments:
+" Turn the line FALSE
+nnoremap <Leader>F <Esc>$6bcwFALSE<Esc>
+" Turn the line TRUE
+nnoremap <Leader>T <Esc>$6bcwTRUE<Esc>
+" Turn the line 1 100 aka correct
+nnoremap <Leader>1 <Esc>$2bcw1<Esc>2bcw1<Esc>
+" Turn the line 0 0 aka incorrect
+nnoremap <Leader>0 <Esc>$2bcw0<Esc>2bcw0<Esc>
+" TRUE/FALSE line
+nnoremap <Leader>X <Esc>^iCOURSE<bar>COURSEMODULE00<bar>5<bar>.<bar><bar><bar>TRUE<bar><bar><bar>1<bar>1<bar><bar><bar><Esc>
+" Multiple Choice line
+nnoremap <Leader>M <Esc>^iCOURSE<bar>COURSEMODULE00<bar>1<bar>?<bar><bar><bar>Thing1<bar><bar><bar>1<bar>1<bar><bar><bar><Esc>
 
 """"""
 "FROM ASCIIDOC PAGE

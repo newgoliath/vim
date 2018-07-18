@@ -246,13 +246,13 @@ nnoremap <Leader>F <Esc>$6bcwFALSE<Esc>
 " Turn the line TRUE
 nnoremap <Leader>T <Esc>$6bcwTRUE<Esc>
 " Turn the line 1 100 aka correct
-nnoremap <Leader>1 <Esc>$2bcw1<Esc>2bcw1<Esc>
+nnoremap <Leader>1 <Esc>$2bcw100<Esc>3bcw1<Esc>
 " Turn the line 0 0 aka incorrect
 nnoremap <Leader>0 <Esc>$2bcw0<Esc>2bcw0<Esc>
 " TRUE/FALSE line
-nnoremap <Leader>X <Esc>^iCOURSE<bar>COURSEMODULE00<bar>5<bar>.<bar><bar><bar>TRUE<bar><bar><bar>1<bar>1<bar><bar><bar><Esc>
+nnoremap <Leader>X <Esc>^iCOURSE<bar>COURSEMODULE00<bar>5<bar>.<bar><bar><bar>TRUE<bar><bar><bar>1<bar>100<bar><bar><bar><Esc>
 " Multiple Choice line
-nnoremap <Leader>M <Esc>^iCOURSE<bar>COURSEMODULE00<bar>1<bar>?<bar><bar><bar>Thing1<bar><bar><bar>1<bar>1<bar><bar><bar><Esc>
+nnoremap <Leader>M <Esc>^iCOURSE<bar>COURSEMODULE00<bar>1<bar>?<bar><bar><bar>Thing1<bar><bar><bar>1<bar>100<bar><bar><bar><Esc>
 
 """"""
 "FROM ASCIIDOC PAGE

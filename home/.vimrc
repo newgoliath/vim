@@ -67,6 +67,9 @@ let g:ale_list_window_size = 5
 " Set this. Airline will handle the rest.
 let g:airline#extensions#ale#enabled = 1
 
+colorscheme citylights
+set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+
 
 """"""""""""""""""""
 " Make things pretty
@@ -239,8 +242,8 @@ let g:ansible_options = {'documentation_mapping': '<C-K>'}
 
 """"""
 " Red Hat GPTE
-
 " Shortcuts for assessments:
+
 " Turn the line FALSE
 nnoremap <Leader>F <Esc>$6bcwFALSE<Esc>
 " Turn the line TRUE

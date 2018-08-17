@@ -64,14 +64,11 @@ let g:ale_set_highlights = 1
 let g:ale_list_window_size = 5
  
 
-" Set this. Airline will handle the rest.
+" Set this Ale support for Airline 
 let g:airline#extensions#ale#enabled = 1
 
-colorscheme citylights
-set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 
-
-""""""""""""""""""""
+"""""""""""""""""""
 " Make things pretty
 """"""""""""""""""""
 let g:airline_powerline_fonts = 1
@@ -92,6 +89,20 @@ endif
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
 silent! helptags ALL
+
+colorscheme citylights
+set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+
+let g:tmuxline_preset = {
+      \'a'    : '#S',
+      \'b'    : '#W',
+      \'c'    : '#H',
+      \'win'  : '#I #W',
+      \'cwin' : '#I #W',
+      \'x'    : '%a %R',
+      \'y'    : '#(/bin/bash ~/.tmux/kube.tmux 250 red cyan)',
+      \'z'    : '#H'}
+
 
 
 """"""""""""""""""""

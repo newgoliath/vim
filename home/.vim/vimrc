@@ -36,13 +36,12 @@ Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'
 """""
 " Asciidoc
-Plugin 'dagwieers/asciidoc-vim'
 Plugin 'matcatc/vim-asciidoc-folding'
 Plugin 'asciidoc/asciidoc'
+Plugin 'dagwieers/asciidoc-vim'
 """""
 " Ansible
 Plugin 'pearofducks/ansible-vim'
-Plugin 'chase/vim-ansible-yaml'
 """""
 " Yaml
 Plugin 'pedrohdz/vim-yaml-folds'

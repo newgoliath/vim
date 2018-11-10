@@ -10,7 +10,6 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
 
-
 """"""""""""""""""""
 " Plugins - Vundle - START
 """"""""""""""""""""
@@ -24,13 +23,13 @@ Plugin 'vim-airline/vim-airline'
 Plugin 'edkolev/tmuxline.vim'
 " amazing async linter
 Plugin 'w0rp/ale' 
-Plugin '907th/vim-auto-save'
-Plugin 'scrooloose/nerdtree'
-Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'vim-voom/VOoM'
-"Plugin 'fholgado/minibufexpl.vim'
-"Plugin 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
-"Plugin 'scrooloose/syntastic'
+"-Plugin '907th/vim-auto-save'
+"-Plugin 'scrooloose/nerdtree'
+"-Plugin 'Xuyuanp/nerdtree-git-plugin'
+"-Plugin 'vim-voom/VOoM'
+"-"Plugin 'fholgado/minibufexpl.vim'
+"-"Plugin 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
+"-"Plugin 'scrooloose/syntastic'
 """""
 " Git
 Plugin 'tpope/vim-fugitive'
@@ -39,7 +38,7 @@ Plugin 'tpope/vim-rhubarb'
 " Asciidoc
 Plugin 'dagwieers/asciidoc-vim'
 Plugin 'matcatc/vim-asciidoc-folding'
-"Plugin 'asciidoc/asciidoc'
+Plugin 'asciidoc/asciidoc'
 """""
 " Ansible
 Plugin 'pearofducks/ansible-vim'
@@ -62,11 +61,12 @@ filetype plugin indent on    " required
 let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 1
 let g:ale_list_window_size = 5
- 
 
 " Set this Ale support for Airline 
 let g:airline#extensions#ale#enabled = 1
 
+" Enable completion where available.
+let g:ale_completion_enabled = 1
 
 """""""""""""""""""
 " Make things pretty
@@ -90,8 +90,8 @@ endif
 " All messages and errors will be ignored.
 silent! helptags ALL
 
-colorscheme citylights
-set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+"colorscheme citylights
+"-set guifont=Source\ Code\ Pro\ for\ Powerline:h12
 
 let g:tmuxline_preset = {
       \'a'    : '#S',
@@ -178,6 +178,8 @@ set nofoldenable
 :vmap sy "zdI+<CR>[source,yaml]<CR>----<CR><C-R>z----<CR><Esc>
 " Wrap vselect with [source,ini]
 :vmap si "zdI+<CR>[source,ini]<CR>----<CR><C-R>z----<CR>+<CR><Esc>
+" Delete text between ----
+:map d-- :silent ,?----?+1d\|,/----/-1d<CR>O
 
 " New Slide maps
 :map nsl i<CR>:scrollbar:<CR>:data-uri:<CR>:noaudio:<CR>== SLIDE TITLE<CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR><CR>endif::showscript[]<CR><CR><Esc>
@@ -275,9 +277,9 @@ nnoremap <Leader>M <Esc>^iCOURSE<bar>COURSEMODULE00<bar>1<bar>?<bar><bar><bar>Th
 "set background=dark
 
 " Show tabs and trailing characters.
-"set listchars=tab:»·,trail:·,eol:¬
-"set listchars=tab:»·,trail:·
-"set list
+set listchars=tab:»·,trail:·,eol:¬
+set listchars=tab:»·,trail:·
+set list
 
 " Reformat paragraphs and list.
 "nnoremap <Leader>r gq}
@@ -285,9 +287,9 @@ nnoremap <Leader>M <Esc>^iCOURSE<bar>COURSEMODULE00<bar>1<bar>?<bar><bar><bar>Th
 " Delete trailing white space and Dos-returns and to expand tabs to spaces.
 "nnoremap <Leader>t :set et<CR>:retab!<CR>:%s/[\r \t]\+$//<CR>
 
-"autocmd BufRead,BufNewFile *.txt,*.asciidoc,README,TODO,CHANGELOG,NOTES,ABOUT
+" autocmd BufRead,BufNewFile *.txt,*.asciidoc,README,TODO,CHANGELOG,NOTES,ABOUT
         "\ setlocal autoindent expandtab tabstop=8 softtabstop=2 shiftwidth=2 filetype=asciidoc
         "\ textwidth=70 wrap formatoptions=tcqn
         "\ formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\\|^\\s*<\\d\\+>\\s\\+\\\\|^\\s*[a-zA-Z.]\\.\\s\\+\\\\|^\\s*[ivxIVX]\\+\\.\\s\\+
         "\ comments=s1:/*,ex:*/,://,b:#,:%,:XCOMM,fb:-,fb:*,fb:+,fb:.,fb:>
-        "
+

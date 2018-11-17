@@ -22,8 +22,8 @@ Plugin 'VundleVim/Vundle.vim'
 Plugin 'vim-airline/vim-airline'
 Plugin 'edkolev/tmuxline.vim'
 " amazing async linter
-Plugin 'w0rp/ale' 
-"-Plugin '907th/vim-auto-save'
+Plugin 'w0rp/ale'
+Plugin '907th/vim-auto-save'
 "-Plugin 'scrooloose/nerdtree'
 "-Plugin 'Xuyuanp/nerdtree-git-plugin'
 "-Plugin 'vim-voom/VOoM'
@@ -37,8 +37,8 @@ Plugin 'tpope/vim-rhubarb'
 """""
 " Asciidoc
 Plugin 'matcatc/vim-asciidoc-folding'
-Plugin 'asciidoc/asciidoc'
-Plugin 'dagwieers/asciidoc-vim'
+"Plugin 'asciidoc/asciidoc'
+"Plugin 'dagwieers/asciidoc-vim'
 """""
 " Ansible
 Plugin 'pearofducks/ansible-vim'
@@ -61,7 +61,7 @@ let g:ale_sign_column_always = 1
 let g:ale_set_highlights = 1
 let g:ale_list_window_size = 5
 
-" Set this Ale support for Airline 
+" Set this Ale support for Airline
 let g:airline#extensions#ale#enabled = 1
 
 " Enable completion where available.
@@ -89,8 +89,15 @@ endif
 " All messages and errors will be ignored.
 silent! helptags ALL
 
-"colorscheme citylights
-"-set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+" macvim
+set bg=dark
+colorscheme default
+set guifont=Source\ Code\ Pro\ for\ Powerline:h12
+" no macvim shortcut keys
+if has("gui_macvim")
+  let macvim_skip_cmd_opt_movement = 1
+  colorscheme darkblue
+endif
 
 let g:tmuxline_preset = {
       \'a'    : '#S',
@@ -120,21 +127,18 @@ set clipboard+=unnamed
 """""
 " Vimdiff
 
-" vimdiff is unreadable: ignore whitespace
-set diffopt+=iwhite
-" rebind some keys in vimdiff
+" vimdiff is unreadable - no syntax highlitghting, whitespace, etc.
 if &diff
-    set cursorline
     map ] ]c
     map [ [c
-    hi DiffAdd    ctermfg=233 ctermbg=LightGreen guifg=#003300 guibg=#DDFFDD gui=none cterm=none
-    hi DiffChange ctermbg=white  guibg=#ececec gui=none   cterm=none
-    hi DiffText   ctermfg=233  ctermbg=yellow  guifg=#000033 guibg=#DDDDFF gui=none cterm=none
-endif
-" vimdiff is unreadable - no syntax highlitghting
-if &diff
+    set cursorline
     syntax off
-    colorscheme industry
+    "colorscheme default
+    set diffopt+=iwhite
+    highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
+    highlight DiffText   cterm=bold ctermfg=10 ctermbg=88 gui=none guifg=bg guibg=Red
 endif
 
 """""
@@ -276,8 +280,9 @@ nnoremap <Leader>M <Esc>^iCOURSE<bar>COURSEMODULE00<bar>1<bar>?<bar><bar><bar>Th
 "set background=dark
 
 " Show tabs and trailing characters.
-set listchars=tab:»·,trail:·,eol:¬
-set listchars=tab:»·,trail:·
+set listchars=tab:»·,trail:·,extends:↷,precedes:↶,nbsp:⁔
+"set listchars=tab:»·,trail:·,eol:¬,trail:␣,extends:↷,precedes:↶,nbsp:⁔
+"set listchars=eol:•,tab:→\ ,trail:␣,extends:↷,precedes:↶,nbsp:⁔
 set list
 
 " Reformat paragraphs and list.

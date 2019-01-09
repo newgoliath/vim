@@ -2,6 +2,8 @@
 " judd@redhat.com
 " GPTE DevOps Automation
 " .vimrc geared towards asciidoc and ansible/yaml
+"
+" Install the plugins by starting vim and executing :PluginInstall
 
 
 """"""""""""""""""""
@@ -46,6 +48,9 @@ Plugin 'pearofducks/ansible-vim'
 " Yaml
 Plugin 'pedrohdz/vim-yaml-folds'
 """"
+" Json
+Plugin 'elzr/vim-json'
+""""
 " Tmux and Terminals
 "Plugin 'tpope/vim-tbone'
 "Plugin 'sjl/vitality.vim'
@@ -55,6 +60,10 @@ call vundle#end()            " required
 filetype plugin indent on    " required
 """"""""""""""""""""
 " Plugins - Vundle - END
+""""""""""""""""""""
+
+""""""""""""""""""""
+" Enable the Amazing Linter
 """"""""""""""""""""
 " ale settings - linter
 let g:ale_sign_column_always = 1
@@ -108,8 +117,6 @@ let g:tmuxline_preset = {
       \'x'    : '%a %R',
       \'y'    : '#(/bin/bash ~/.tmux/kube.tmux 250 red cyan)',
       \'z'    : '#H'}
-
-
 
 """"""""""""""""""""
 " Workflow
@@ -169,7 +176,7 @@ set nofoldenable
 " mappings for asciidoc text mgmnt
 
 
-"iab _source [source,bash]<CR>----<CR><CR>----<CR>+<CR>Expect output to look similar to this:<CR>+<CR>[source,text]<CR>----<CR><CR>----<CR>
+"iab _source [source,sh]<CR>----<CR><CR>----<CR>+<CR>Expect output to look similar to this:<CR>+<CR>[source,texinfo]<CR>----<CR><CR>----<CR>
 
 " Wrap vselect with show_solution=true
 :vmap ss "zdIifeval::[{show_solution} == true]<CR><C-R>zendif::[]<CR><Esc>
@@ -185,11 +192,11 @@ set nofoldenable
 :map d-- :silent ,?----?+1d\|,/----/-1d<CR>O
 
 " New Slide maps
-:map nsl i<CR>:scrollbar:<CR>:data-uri:<CR>:noaudio:<CR>== SLIDE TITLE<CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR><CR>endif::showscript[]<CR><CR><Esc>
+:map nsl i<CR>== <CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR><CR>endif::showscript[]<CR><CR><Esc>8kA
 " New Slide with slide title from vselected text
-:map nsn ^"zd$i<CR>:scrollbar:<CR>:data-uri:<CR>:noaudio:<CR>== <Esc>"zpa<CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR>endif::showscript[]<CR><Esc>?==<CR><Esc>
+:map nsn ^"zd$i<CR>== <Esc>"zpa<CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR>endif::showscript[]<CR><Esc>?==<CR><Esc>
 " New Slide with slide transcript from vselected text
-:vmap nst "zdI<CR>:scrollbar:<CR>:data-uri:<CR>:noaudio:<CR>== SLIDE TITLE<CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR><CR><C-R>z<CR>endif::showscript[]<CR><CR><Esc>
+:vmap nst "zdI<CR>== SLIDE TITLE<CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR><CR><C-R>z<CR>endif::showscript[]<CR><CR><Esc>
 " wrap vselected text in transcript
 :vmap trans "zdI<CR>ifdef::showscript[]<CR><CR>Transcript:<CR><CR><C-R>z<CR><CR>endif::showscript[]<CR><CR><Esc> 
 

@@ -3,7 +3,11 @@
 " GPTE DevOps Automation
 " .vimrc geared towards asciidoc and ansible/yaml
 "
-" Install the plugins by starting vim and executing :PluginInstall
+" Install the plugins by 
+"  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
+" start vim
+"  :PluginInstall
+"
 
 
 """"""""""""""""""""

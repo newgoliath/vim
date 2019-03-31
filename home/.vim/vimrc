@@ -11,7 +11,7 @@
 
 
 """"""""""""""""""""
-" Basic Stuff
+" Vundle Prereqs
 
 set nocompatible              " be iMproved, required
 filetype off                  " required
@@ -27,38 +27,42 @@ Plugin 'VundleVim/Vundle.vim'
 " Esthetics and Syntax and Workflow
 Plugin 'vim-airline/vim-airline'
 Plugin 'edkolev/tmuxline.vim'
-" amazing async linter
+"" amazing async linter
 Plugin 'w0rp/ale'
 Plugin '907th/vim-auto-save'
-"-Plugin 'scrooloose/nerdtree'
-"-Plugin 'Xuyuanp/nerdtree-git-plugin'
-"-Plugin 'vim-voom/VOoM'
-"-"Plugin 'fholgado/minibufexpl.vim'
-"-"Plugin 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
-"-"Plugin 'scrooloose/syntastic'
-"""""
-" Git
+""-Plugin 'scrooloose/nerdtree'
+""-Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'vim-voom/VOoM'
+""-"Plugin 'fholgado/minibufexpl.vim'
+""-"Plugin 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
+""-"Plugin 'scrooloose/syntastic'
+""""""
+"" Git
 Plugin 'tpope/vim-fugitive'
 Plugin 'tpope/vim-rhubarb'
-"""""
-" Asciidoc
+""""""
+"" Asciidoc
 Plugin 'matcatc/vim-asciidoc-folding'
-"Plugin 'asciidoc/asciidoc'
-"Plugin 'dagwieers/asciidoc-vim'
-"""""
-" Ansible
+""Plugin 'asciidoc/asciidoc'
+""Plugin 'dagwieers/asciidoc-vim'
+""""""
+"" Ansible
 Plugin 'pearofducks/ansible-vim'
-"""""
-" Yaml
+""""""
+"" Yaml
 Plugin 'pedrohdz/vim-yaml-folds'
-""""
-" Json
+"""""
+"" Json
 Plugin 'elzr/vim-json'
-""""
-" Tmux and Terminals
-"Plugin 'tpope/vim-tbone'
-"Plugin 'sjl/vitality.vim'
-"Plugin 'benmills/vimux'
+"""""
+"" Tmux and Terminals
+""Plugin 'tpope/vim-tbone'
+""Plugin 'sjl/vitality.vim'
+""Plugin 'benmills/vimux'
+"""""
+"" Trello
+"Plugin 'malithsen/trello-vim'
+
 
 call vundle#end()            " required
 filetype plugin indent on    " required
@@ -66,19 +70,25 @@ filetype plugin indent on    " required
 " Plugins - Vundle - END
 """"""""""""""""""""
 
+
+""""""""""""""""""""
+" <Leader>jf will JSON PRETTY-FORMAT your json.
+""""""""""""""""""""
+nnoremap <Leader>fj :%!python -m json.tool<Enter>:set nowrap<Enter>:set ft:javascript<Enter>
+
 """"""""""""""""""""
 " Enable the Amazing Linter
 """"""""""""""""""""
 " ale settings - linter
-let g:ale_sign_column_always = 1
-let g:ale_set_highlights = 1
-let g:ale_list_window_size = 5
+" let g:ale_sign_column_always = 1
+"let g:ale_set_highlights = 1
+"let g:ale_list_window_size = 5
 
 " Set this Ale support for Airline
-let g:airline#extensions#ale#enabled = 1
+"let g:airline#extensions#ale#enabled = 1
 
 " Enable completion where available.
-let g:ale_completion_enabled = 1
+"let g:ale_completion_enabled = 1
 
 """""""""""""""""""
 " Make things pretty
@@ -127,7 +137,7 @@ let g:tmuxline_preset = {
 """"""""""""""""""""
 
 " Open file in Chrome
-:noremap <silent> <F5> :! open -n -a "Google Chrome" --args --profile-directory="Default" file:///%:p<CR>
+:noremap <silent> <F5> :! open -n -a "Google Chrome" --args --profile-directory="Default" file:///%:p<CR><CR>
 " Open file in Chrome - tried to ensure that filenames are escaped - failed
 ":noremap <silent> <F5> :! open -n -a "Google Chrome" --args --profile-directory="Default"; webapi#http#escape(file:///%:p<CR>)
 :map <silent> <F6> vat<Esc>`<df>`>F<df>

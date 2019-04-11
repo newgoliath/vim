@@ -3,12 +3,10 @@
 " GPTE DevOps Automation
 " .vimrc geared towards asciidoc and ansible/yaml
 "
-" Install the plugins by 
+" Install the plugins by
 "  git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
 " start vim
 "  :PluginInstall
-"
-
 
 """"""""""""""""""""
 " Vundle Prereqs
@@ -27,7 +25,7 @@ Plugin 'VundleVim/Vundle.vim'
 " Esthetics and Syntax and Workflow
 Plugin 'vim-airline/vim-airline'
 Plugin 'edkolev/tmuxline.vim'
-"" amazing async linter
+"" amazing async linter - Vim 8 only
 Plugin 'w0rp/ale'
 Plugin '907th/vim-auto-save'
 ""-Plugin 'scrooloose/nerdtree'
@@ -63,18 +61,24 @@ Plugin 'elzr/vim-json'
 "" Trello
 "Plugin 'malithsen/trello-vim'
 
-
 call vundle#end()            " required
 filetype plugin indent on    " required
 """"""""""""""""""""
 " Plugins - Vundle - END
 """"""""""""""""""""
 
-
+""""""""""""""""""""
+" Short Commands to do great things
+"
 """"""""""""""""""""
 " <Leader>jf will JSON PRETTY-FORMAT your json.
 """"""""""""""""""""
 nnoremap <Leader>fj :%!python -m json.tool<Enter>:set nowrap<Enter>:set ft:javascript<Enter>
+
+""""""""""""""""""""
+" <Leader>64 will base64 decode selection with replace
+""""""""""""""""""""
+:vnoremap <leader>64 c<c-r>=system('base64 --decode', @")<cr><esc>
 
 """"""""""""""""""""
 " Enable the Amazing Linter
@@ -85,10 +89,10 @@ nnoremap <Leader>fj :%!python -m json.tool<Enter>:set nowrap<Enter>:set ft:javas
 "let g:ale_list_window_size = 5
 
 " Set this Ale support for Airline
-"let g:airline#extensions#ale#enabled = 1
+let g:airline#extensions#ale#enabled = 1
 
 " Enable completion where available.
-"let g:ale_completion_enabled = 1
+let g:ale_completion_enabled = 1
 
 """""""""""""""""""
 " Make things pretty
@@ -175,7 +179,6 @@ endif
 " plugin nerdtree-git
 let g:NERDTreeShowGitStatus = 1
 
-
 """"""""""""""""""""
 " Asciidoc
 """"""""""""""""""""
@@ -188,7 +191,6 @@ set nofoldenable
 """"""""""""""""""""
 """"""""""""""""""""
 " mappings for asciidoc text mgmnt
-
 
 "iab _source [source,sh]<CR>----<CR><CR>----<CR>+<CR>Expect output to look similar to this:<CR>+<CR>[source,texinfo]<CR>----<CR><CR>----<CR>
 
@@ -212,17 +214,15 @@ set nofoldenable
 " New Slide with slide transcript from vselected text
 :vmap nst "zdI<CR>== SLIDE TITLE<CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR><CR><C-R>z<CR>endif::showscript[]<CR><CR><Esc>
 " wrap vselected text in transcript
-:vmap trans "zdI<CR>ifdef::showscript[]<CR><CR>Transcript:<CR><CR><C-R>z<CR><CR>endif::showscript[]<CR><CR><Esc> 
+:vmap trans "zdI<CR>ifdef::showscript[]<CR><CR>Transcript:<CR><CR><C-R>z<CR><CR>endif::showscript[]<CR><CR><Esc>
 
 " moving between slides - move up/down and put title at home
 :map <C-j> zjztzo
 :map <C-k> kzkjztzo
 
-
 " change '.headings' to '=== headings'
 :cmap hf :%s/^\.\(\w\+.*\)$/=== \1/
 :cmap nhf :%s/^=== \(\w\+.*\)$/.\1/
-
 
 " delete trailing whitespace and replace three or more consecutive line
 " endings with two line endings
@@ -251,7 +251,6 @@ let g:ansible_options = {'documentation_mapping': '<C-K>'}
 ":Tyank and :Tput give you direct access to tmux buffers.
 ":Twrite sends a chunk of text to another pane. Give an argument like windowtitle.2, top-right, or last, or let it default to the previously given argument.
 ":Tattach lets you use a specific tmux session from outside of it.
-
 
 """"""""""""""""""""
 " Commented out: Possibly useful

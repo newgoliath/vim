@@ -23,6 +23,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 """""
 " Esthetics and Syntax and Workflow
+
+Plugin 'nathanaelkane/vim-indent-guides'
+
 Plugin 'vim-airline/vim-airline'
 Plugin 'edkolev/tmuxline.vim'
 "" amazing async linter - Vim 8 only

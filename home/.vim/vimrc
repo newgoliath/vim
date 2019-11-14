@@ -83,11 +83,19 @@ filetype plugin indent on    " required
 """"""""""""""""""""
 :vnoremap <leader>64 c<c-r>=system('base64 --decode', @")<cr><esc>
 
+" enable fuzzy finder
+set rtp+=~/.fzf
+
+
 """"""""""""""""""""
-" grepping with rg
+" grepping with rg ripgrep
 """"""""""""""""""""
 
-set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+if executable("rg")
+   set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
+   set grepformat=%f:%l:%c:%m,%f:%l:%m
+endif
+
 nnoremap <Leader>g :silent lgrep<Space>
 nnoremap <silent> [f :lprevious<CR>
 nnoremap <silent> ]f :lnext<CR>

@@ -23,7 +23,9 @@ call vundle#begin()
 Plugin 'VundleVim/Vundle.vim'
 """""
 " Esthetics and Syntax and Workflow
-
+Plugin 'vifm/vifm.vim'
+Plugin 'junegunn/fzf'
+Plugin 'junegunn/fzf.vim'
 Plugin 'flazz/vim-colorschemes'
 Plugin 'nathanaelkane/vim-indent-guides'
 Plugin 'vim-airline/vim-airline'
@@ -31,8 +33,9 @@ Plugin 'edkolev/tmuxline.vim'
 "" amazing async linter - Vim 8 only
 Plugin 'w0rp/ale'
 Plugin '907th/vim-auto-save'
-Plugin 'scrooloose/nerdtree'
+"Plugin 'scrooloose/nerdtree'
 Plugin 'Xuyuanp/nerdtree-git-plugin'
+Plugin 'airblade/vim-gitgutter'
 Plugin 'vim-voom/VOoM'
 ""-"Plugin 'fholgado/minibufexpl.vim'
 ""-"Plugin 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
@@ -83,14 +86,20 @@ filetype plugin indent on    " required
 """"""""""""""""""""
 :vnoremap <leader>64 c<c-r>=system('base64 --decode', @")<cr><esc>
 
+""""""""""""""""""""
 " enable fuzzy finder
-set rtp+=~/.fzf
-
+""""""""""""""""""""
+if filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
+  if executable("/usr/local/opt/fzf/bin/fzf")
+    set rtp+=/usr/local/opt/fzf/bin/fzf
+  else
+    set rtp+=~/.fzf
+  endif
+endif
 
 """"""""""""""""""""
 " grepping with rg ripgrep
 """"""""""""""""""""
-
 if executable("rg")
    set grepprg=rg\ --vimgrep\ --no-heading\ --smart-case
    set grepformat=%f:%l:%c:%m,%f:%l:%m
@@ -116,6 +125,12 @@ let g:airline#extensions#ale#enabled = 1
 
 " Enable completion where available.
 let g:ale_completion_enabled = 1
+
+
+"""""""""""""""""""
+" Enable GitGutter
+"""""""""""""""""""
+" set GitGutterEnable
 
 """""""""""""""""""
 " Make things pretty
@@ -182,7 +197,7 @@ if &diff
     set cursorline
     syntax off
     "colorscheme default
-    set diffopt+=iwhite
+    "set diffopt+=iwhite
     highlight DiffAdd    cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
     highlight DiffDelete cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red
     highlight DiffChange cterm=bold ctermfg=10 ctermbg=17 gui=none guifg=bg guibg=Red

@@ -1,4 +1,3 @@
-""""""""""""""
 " judd@redhat.com
 " GPTE DevOps Automation
 " .vimrc geared towards asciidoc and ansible/yaml
@@ -8,73 +7,106 @@
 " start vim
 "  :PluginInstall
 
-""""""""""""""""""""
-" Vundle Prereqs
-
 set nocompatible              " be iMproved, required
-filetype off                  " required
 
 """"""""""""""""""""
-" Plugins - Vundle - START
+" Plugins - vim-plug - START
 """"""""""""""""""""
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
+call plug#begin('~/.vim/plugged')
 
-Plugin 'VundleVim/Vundle.vim'
 """""
+" Kube Stuff
+Plug 'c9s/helper.vim'
+Plug 'c9s/treemenu.vim'
+Plug 'c9s/vikube.vim'
 " Esthetics and Syntax and Workflow
-Plugin 'vifm/vifm.vim'
-Plugin 'junegunn/fzf'
-Plugin 'junegunn/fzf.vim'
-Plugin 'flazz/vim-colorschemes'
-Plugin 'nathanaelkane/vim-indent-guides'
-Plugin 'vim-airline/vim-airline'
-Plugin 'edkolev/tmuxline.vim'
+Plug 'vifm/vifm.vim'
+Plug 'junegunn/fzf'
+Plug 'junegunn/fzf.vim'
+Plug 'flazz/vim-colorschemes'
+Plug 'nathanaelkane/vim-indent-guides'
+Plug 'vim-airline/vim-airline'
+Plug 'edkolev/tmuxline.vim'
 "" amazing async linter - Vim 8 only
-Plugin 'w0rp/ale'
-Plugin '907th/vim-auto-save'
-" Plugin 'scrooloose/nerdtree'
-" Plugin 'Xuyuanp/nerdtree-git-plugin'
-Plugin 'airblade/vim-gitgutter'
-Plugin 'vim-voom/VOoM'
-""-"Plugin 'fholgado/minibufexpl.vim'
-""-"Plugin 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
-""-"Plugin 'scrooloose/syntastic'
+Plug 'w0rp/ale'
+Plug '907th/vim-auto-save'
+"Plug 'scrooloose/nerdtree'
+"Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
+Plug 'vim-voom/VOoM'
+Plug 'jeetsukumaran/vim-buffergator'
+""-"Plug 'fholgado/minibufexpl.vim'
+""-"Plug 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
+""-"Plug 'scrooloose/syntastic'
+
 """"""
 "" Git
-Plugin 'tpope/vim-fugitive'
-"Plugin 'tpope/vim-rhubarb'
+Plug 'tpope/vim-fugitive'
+Plug 'idanarye/vim-merginal'
+Plug 'tpope/vim-unimpaired'
+Plug 'tpope/vim-rhubarb'
+Plug 'tpope/vim-vinegar'
+
 """"""
 "" Asciidoc
-Plugin 'matcatc/vim-asciidoc-folding'
-""Plugin 'asciidoc/asciidoc'
-""Plugin 'dagwieers/asciidoc-vim'
+Plug 'matcatc/vim-asciidoc-folding'
+""Plug 'asciidoc/asciidoc'
+""Plug 'dagwieers/asciidoc-vim'
+
 """"""
 "" Ansible
-Plugin 'pearofducks/ansible-vim'
+Plug 'pearofducks/ansible-vim'
+
 """"""
 "" Yaml
-Plugin 'pedrohdz/vim-yaml-folds'
+Plug 'pedrohdz/vim-yaml-folds'
+
 """""
 "" Json
-Plugin 'elzr/vim-json'
+Plug 'elzr/vim-json'
+
 """""
 "" Tmux and Terminals
-""Plugin 'tpope/vim-tbone'
-""Plugin 'sjl/vitality.vim'
-""Plugin 'benmills/vimux'
+""Plug 'tpope/vim-tbone'
+""Plug 'sjl/vitality.vim'
+""Plug 'benmills/vimux'
+
 """""
 "" Trello
-"Plugin 'malithsen/trello-vim'
+"Plug 'malithsen/trello-vim'
 
-call vundle#end()            " required
-filetype plugin indent on    " required
+""""
+"" Diagramming
+Plug 'gyim/vim-boxdraw'
+
+""""
+"" spreadsheet, csv handling
+Plug 'chrisbra/csv.vim'
+
+call plug#end()            " required
+" filetype plugin indent on    " required
+
 """"""""""""""""""""
-" Plugins - Vundle - END
+" Plugins - vim-plug - END
 """"""""""""""""""""
+
+
+""""""""""""""""""""
+" Plugins - Vim8/neoVim - BEGIN
+""""""""""""""""""""
+
+if has('nvim')
+  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+else
+  Plug 'Shougo/deoplete.nvim'
+  Plug 'roxma/nvim-yarp'
+  Plug 'roxma/vim-hug-neovim-rpc'
+endif
+let g:deoplete#enable_at_startup = 1
+
+
 """"""""""""""""""""
 " Short Commands to do great things
-"
 """"""""""""""""""""
 " <Leader>jf will JSON PRETTY-FORMAT your json.
 """"""""""""""""""""
@@ -96,6 +128,17 @@ if filereadable("/usr/local/opt/fzf/plugin/fzf.vim")
     set rtp+=~/.fzf
   endif
 endif
+
+""""""""""""""""""""
+" set working dir to current file/buffer
+""""""""""""""""""""
+"set autochdir "may break my world
+
+""""""""""""""""""""
+" vertical bar at cursor
+""""""""""""""""""""
+set cuc "cursorcolumn
+set cul "cursorline
 
 """"""""""""""""""""
 " grepping with rg ripgrep
@@ -126,11 +169,24 @@ let g:airline#extensions#ale#enabled = 1
 " Enable completion where available.
 let g:ale_completion_enabled = 1
 
-
 """""""""""""""""""
 " Enable GitGutter
 """""""""""""""""""
-" set GitGutterEnable
+let g:gitgutter_enabled = 1
+
+
+"""""""""""""""""""
+" <Leader>g shows commit that introduced current line
+map <silent><Leader>g :call setbufvar(winbufnr(popup_atcursor(systemlist("cd " . shellescape(fnamemodify(resolve(expand('%:p')), ":h")) . " && git log --no-merges -n 1 -L " . shellescape(line("v") . "," . line(".") . ":" . resolve(expand("%:p")))), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
+
+"""""""""""""""""""
+" Fugitive
+"""""""""""""""""""
+" diff merge conflicts mappings
+" Fugitive Conflict Resolution
+nnoremap <leader>gd :Gvdiffsplit!<CR>
+nnoremap gdh :diffget //2<CR>
+nnoremap gdl :diffget //3<CR>
 
 """""""""""""""""""
 " Make things pretty
@@ -164,22 +220,25 @@ if has("gui_macvim")
   colorscheme darkblue
 endif
 
+" tmuxline
 let g:tmuxline_preset = {
       \'a'    : '#S',
       \'b'    : '#W',
       \'c'    : '#H',
       \'win'  : '#I #W',
       \'cwin' : '#I #W',
-      \'x'    : '%a %R',
-      \'y'    : '#(/bin/bash ~/.tmux/kube.tmux 250 red cyan)',
+      \'x'    : '#(/bin/bash ~/.tmux/kube.tmux 250 red cyan)',
+      \'y'    : '#(cd #{pane_current_path}; git rev-parse --abbrev-ref HEAD)',
       \'z'    : '#H'}
+
+"      \'w'    : '%a %R',
 
 """"""""""""""""""""
 " Workflow
 """"""""""""""""""""
 
 " Open file in Chrome
-:noremap <silent> <F5> :! open -n -a "Google Chrome" --args --profile-directory="Default" file:///%:p<CR><CR>
+:noremap <silent> <F5> :! open -n -a "Brave Browser" --args --profile-directory="Default" file:///%:p<CR><CR>
 " Open file in Chrome - tried to ensure that filenames are escaped - failed
 ":noremap <silent> <F5> :! open -n -a "Google Chrome" --args --profile-directory="Default"; webapi#http#escape(file:///%:p<CR>)
 :map <silent> <F6> vat<Esc>`<df>`>F<df>
@@ -215,7 +274,7 @@ endif
 :set mouse=a
 "let g:NERDTreeMouseMode=3
 " plugin nerdtree-git
-let g:NERDTreeShowGitStatus = 1
+" let g:NERDTreeShowGitStatus = 1
 
 """"""""""""""""""""
 " Asciidoc
@@ -248,7 +307,9 @@ set nofoldenable
 :vmap sl "zxi link:<C-R>z[^]<Esc>
 " Wrap vselect to hide contents
 :vmap sq "zdi+++ <details><summary> +++<CR>_Sample Output:_+++ </summary><div> +++<CR><C-R>z+++ </div></details> +++<CR>
-
+" Wrap vselect with ====
+:vmap sh "zdI====<CR><C-R>z====<CR><Esc>
+"
 " New Slide maps
 :map nsl i<CR>== <CR><CR><CR>ifdef::showscript[]<CR>Transcript:<CR><CR>endif::showscript[]<CR><CR><Esc>8kA
 " New Slide with slide title from vselected text
@@ -259,7 +320,7 @@ set nofoldenable
 :vmap trans "zdI<CR>ifdef::showscript[]<CR><CR>Transcript:<CR><CR><C-R>z<CR><CR>endif::showscript[]<CR><CR><Esc>
 
 " moving between slides - move up/down and put title at home
-:map <C-j> zjztzo
+:map <C-J> zjztzo
 :map <C-k> kzkjztzo
 
 " change '.headings' to '=== headings'
@@ -281,7 +342,30 @@ set nofoldenable
 " Ansible
 """"""""""""""""""""
 " Plug-in vim-ansible-yaml brings up the module documentation if your cursor is in the module name
-let g:ansible_options = {'documentation_mapping': '<C-K>'}
+" let g:ansible_options = {'documentation_mapping': '<Leader>x'}
+" Remap user-specified binding to look in ansible-doc for keyword under cursor
+"nmap <Leader>J :splitbelow | sview |r !ansible-doc <C-R><C-W> *<CR>
+
+"let g:ansible_yamlKeyName = 'yamlKey'
+"let g:ansible_extra_keyworkds_highlight = 1
+let g:ansible_goto_role_paths = './roles,../_common/roles'
+
+function! FindAnsibleRoleUnderCursor()
+  if exists("g:ansible_goto_role_paths")
+    let l:role_paths = g:ansible_goto_role_paths
+  else
+    let l:role_paths = "./roles"
+  endif
+  let l:tasks_main = expand("<cfile>") . "/tasks/main.yml"
+  let l:found_role_path = findfile(l:tasks_main, l:role_paths)
+  if l:found_role_path == ""
+    echo l:tasks_main . " not found"
+  else
+    execute "edit " . fnameescape(l:found_role_path)
+  endif
+endfunction
+
+au BufRead,BufNewFile */ansible/*.yml vnoremap <leader>gr :call FindAnsibleRoleUnderCursor()<CR>
 
 """"""""""""""""""""
 " Tmux and Terminals
@@ -339,9 +423,9 @@ nnoremap <Leader>M <Esc>^iCOURSE<bar>COURSEMODULE00<bar>1<bar>?<bar><bar><bar>Th
 " Shortcuts for Product Names
 nnoremap <Leader>O /OpenShift<Esc>cwRHOCP<Esc>
 
-
 """"""
 "FROM ASCIIDOC PAGE
+""""""
 "" Use bold bright fonts.
 "set background=dark
 
@@ -362,8 +446,6 @@ set list
         "\ textwidth=70 wrap formatoptions=tcqn
         "\ formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\\|^\\s*<\\d\\+>\\s\\+\\\\|^\\s*[a-zA-Z.]\\.\\s\\+\\\\|^\\s*[ivxIVX]\\+\\.\\s\\+
         "\ comments=s1:/*,ex:*/,://,b:#,:%,:XCOMM,fb:-,fb:*,fb:+,fb:.,fb:>
-
-
 
 if v:version < 700 || exists('loaded_switchcolor') || &cp
 	finish
@@ -416,3 +498,4 @@ imap <F8>   <Esc>:call SwitchColor(1)<CR>
 
  map <S-F8>      :call SwitchColor(-1)<CR>
 imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
+

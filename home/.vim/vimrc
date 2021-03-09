@@ -214,12 +214,22 @@ silent! helptags ALL
 " macvim
 set bg=dark
 colorscheme default
-set guifont=Source\ Code\ Pro\ for\ Powerline:h12
-" no macvim shortcut keys
-if has("gui_macvim")
-  let macvim_skip_cmd_opt_movement = 1
-  colorscheme darkblue
+if has('gui_running')
+  if has("gui_macvim")
+    set guifont = 'Source Code Pro for Powerline:h12'
+    let macvim_skip_cmd_opt_movement = 1
+    colorscheme darkblue
+  endif
+  if has("gui_vimr")
+  " Here goes some VimR specific settings like
+    color darkocean
 endif
+
+endif
+
+" mac clipboard
+set clipboard+=unnamed
+
 
 " tmuxline
 let g:tmuxline_preset = {
@@ -238,14 +248,13 @@ let g:tmuxline_preset = {
 " Workflow
 """"""""""""""""""""
 
-" Open file in Chrome
+" Open file in Brave
 :noremap <silent> <F5> :! open -n -a "Brave Browser" --args --profile-directory="Default" file:///%:p<CR><CR>
 " Open file in Chrome - tried to ensure that filenames are escaped - failed
 ":noremap <silent> <F5> :! open -n -a "Google Chrome" --args --profile-directory="Default"; webapi#http#escape(file:///%:p<CR>)
-:map <silent> <F6> vat<Esc>`<df>`>F<df>
 
-" mac clipboard
-set clipboard+=unnamed
+" TODO: wtf?
+:map <silent> <F6> vat<Esc>`<df>`>F<df>
 
 """""
 " Vimdiff

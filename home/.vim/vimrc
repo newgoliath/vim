@@ -17,28 +17,31 @@ call plug#begin('~/.vim/plugged')
 
 """""
 " Language Server client
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
+"Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'neovim/nvim-lspconfig'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'nvim-lua/lsp-status.nvim'
 
 """""
 " Kube Stuff
-Plug 'c9s/helper.vim'
-Plug 'c9s/treemenu.vim'
-Plug 'c9s/vikube.vim'
+""Plug 'c9s/helper.vim'
+""Plug 'c9s/treemenu.vim'
+""Plug 'c9s/vikube.vim'
 " Esthetics and Syntax and Workflow
 Plug 'vifm/vifm.vim'
 Plug 'junegunn/fzf'
 Plug 'junegunn/fzf.vim'
 Plug 'flazz/vim-colorschemes'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'vim-airline/vim-airline'
-Plug 'edkolev/tmuxline.vim'
+""Plug 'nathanaelkane/vim-indent-guides'
+""Plug 'vim-airline/vim-airline'
+"Plug 'edkolev/tmuxline.vim'
 "" amazing async linter - Vim 8 only
-Plug 'w0rp/ale'
-Plug '907th/vim-auto-save'
+""Plug 'w0rp/ale'
+""Plug '907th/vim-auto-save'
 "Plug 'scrooloose/nerdtree'
 "Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
-Plug 'vim-voom/VOoM'
+"Plug 'vim-voom/VOoM'
 Plug 'jeetsukumaran/vim-buffergator'
 ""-"Plug 'fholgado/minibufexpl.vim'
 ""-"Plug 'severin-lemaignan/vim-minimap'  "a sublime text minimap - useless
@@ -47,29 +50,30 @@ Plug 'jeetsukumaran/vim-buffergator'
 """"""
 "" Git
 Plug 'tpope/vim-fugitive'
-Plug 'idanarye/vim-merginal'
-Plug 'tpope/vim-unimpaired'
-Plug 'tpope/vim-rhubarb'
-Plug 'tpope/vim-vinegar'
+""Plug 'idanarye/vim-merginal'
+""Plug 'tpope/vim-unimpaired'
+""Plug 'tpope/vim-rhubarb'
+""Plug 'tpope/vim-vinegar'
 
 """"""
 "" Asciidoc
-Plug 'matcatc/vim-asciidoc-folding'
+"""Plug 'matcatc/vim-asciidoc-folding'
 ""Plug 'asciidoc/asciidoc'
 ""Plug 'dagwieers/asciidoc-vim'
 
 """"""
 "" Ansible
-Plug 'pearofducks/ansible-vim'
+"pearofducks Plug 'pearofducks/ansible-vim'
+""Plug 'chase/vim-ansible-yaml'
 
 """"""
 "" Yaml
-Plug 'pedrohdz/vim-yaml-folds'
-Plug 'stephpy/vim-yaml'
+" Plug 'pedrohdz/vim-yaml-folds'
+" Plug 'stephpy/vim-yaml'
 
 """""
 "" Json
-Plug 'elzr/vim-json'
+" Plug 'elzr/vim-json'
 
 """""
 "" Tmux and Terminals
@@ -83,11 +87,11 @@ Plug 'elzr/vim-json'
 
 """"
 "" Diagramming
-Plug 'gyim/vim-boxdraw'
+" Plug 'gyim/vim-boxdraw'
 
 """"
 "" spreadsheet, csv handling
-Plug 'chrisbra/csv.vim'
+""Plug 'chrisbra/csv.vim'
 
 call plug#end()            " required
 " filetype plugin indent on    " required
@@ -102,8 +106,8 @@ call plug#end()            " required
 """"""""""""""""""""
 
 if has('nvim')
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  let g:deoplete#enable_at_startup = 1
+  "Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+  "let g:deoplete#enable_at_startup = 1
 " else
 "   Plug 'Shougo/deoplete.nvim'
 "   Plug 'roxma/nvim-yarp'
@@ -115,7 +119,15 @@ endif
 """"""""""""""""""""
 " Language Server - CoC
 """"""""""""""""""""
-ru coc.vim
+" ru coc.vim
+" coc docs:
+
+" treesitter
+
+""""""""""""""""""""
+" trim white space on write
+""""""""""""""""""""
+autocmd BufWritePre * :%s/\s\+$//e
 
 """"""""""""""""""""
 " Short Commands to do great things
@@ -150,7 +162,7 @@ endif
 " vertical bar at cursor
 """"""""""""""""""""
 set cuc "cursorcolumn
-highlight CursorColumn ctermbg=DarkGrey
+" highlight hl-CursorColumn ctermbg=DarkGrey guibg=#010101
 set cul "cursorline
 
 """"""""""""""""""""
@@ -189,6 +201,11 @@ let g:gitgutter_enabled = 1
 
 
 """""""""""""""""""
+"""""""""""""""""""
+" Git Stuff
+"""""""""""""""""""
+"""""""""""""""""""
+
 " <Leader>g shows commit that introduced current line
 map <silent><Leader>g :call setbufvar(winbufnr(popup_atcursor(systemlist("cd " . shellescape(fnamemodify(resolve(expand('%:p')), ":h")) . " && git log --no-merges -n 1 -L " . shellescape(line("v") . "," . line(".") . ":" . resolve(expand("%:p")))), { "padding": [1,1,1,1], "pos": "botleft", "wrap": 0 })), "&filetype", "git")<CR>
 
@@ -202,11 +219,11 @@ nnoremap gdh :diffget //2<CR>
 nnoremap gdl :diffget //3<CR>
 
 """""""""""""""""""
-" Make things pretty
+" Indentation, Syntax HL, and Status Lines
 """"""""""""""""""""
 let g:airline_powerline_fonts = 1
 set laststatus=2
-set t_Co=256
+" set t_Co=256
 syntax enable
 set tabstop=2
 set shiftwidth=2
@@ -214,34 +231,58 @@ set expandtab
 set number
 set relativenumber
 
+set statusline=%<%f\ %h%m%r%{FugitiveStatusline()}%=%-14.(%l,%c%V%)\ %P
+
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+  return ''
+endfunction
+
+set statusline+=\ %{LspStatus()}
+
+" cd to dir of current file
+nnoremap <leader>cd :cd %:p:h<CR>:pwd<CR>
+
+" wildmenu thing.  Please review
+"set wildmode=lastused
+
+"""""""""""""""""""
+" Plugins Stuff
 " Vim8 only:
+"""""""""""""""""""
 " Plugins need to be added to runtimepath before helptags can be generated.
 if v:version > 800
   packloadall
 endif
 " Load all of the helptags now, after plugins have been loaded.
 " All messages and errors will be ignored.
-silent! helptags ALL
+helptags ALL
+
+
+""""""""""""""""""""""""""""""""
+" COLORS
+""""""""""""""""""""""""""""""""
+" set termguicolors = 1
 
 " macvim
 set bg=dark
-colorscheme default
+colorscheme Atelier_HeathDark
 if has('gui_running')
   if has("gui_macvim")
     set guifont = 'Source Code Pro for Powerline:h12'
     let macvim_skip_cmd_opt_movement = 1
-    colorscheme darkblue
+    colorscheme Atelier_HeathDark
   endif
   if has("gui_vimr")
   " Here goes some VimR specific settings like
     color darkocean
-endif
-
+  endif
 endif
 
 " mac clipboard
 set clipboard+=unnamed
-
 
 " tmuxline
 let g:tmuxline_preset = {
@@ -347,13 +388,15 @@ set nofoldenable
 :map <C-k> kzkjztzo
 
 " change '.headings' to '=== headings'
-:cmap hf :%s/^\.\(\w\+.*\)$/=== \1/
-:cmap nhf :%s/^=== \(\w\+.*\)$/.\1/
+" no longer necessary, I hope
+":cmap hf :%s/^\.\(\w\+.*\)$/=== \1/
+":cmap nhf :%s/^=== \(\w\+.*\)$/.\1/
 
 " delete trailing whitespace and replace three or more consecutive line
 " endings with two line endings
 :map cleanup <Esc>:%s/\s\+$//e<CR>:%s/\n\{3,}/\r\r/e<CR>
 
+" Clean up Doc Links - 
 " delete text before [ ] and preservetext found in [ ]
 :map spp <Esc>d\[di[va[p " remove everything up to [ ] and preserve insides
 :map sap d/[<CR>di[va[p
@@ -365,13 +408,23 @@ set nofoldenable
 " Ansible
 """"""""""""""""""""
 " Plug-in vim-ansible-yaml brings up the module documentation if your cursor is in the module name
-" let g:ansible_options = {'documentation_mapping': '<Leader>x'}
+let g:ansible_options = {'documentation_mapping': '<Leader>x'}
 " Remap user-specified binding to look in ansible-doc for keyword under cursor
-"nmap <Leader>J :splitbelow | sview |r !ansible-doc <C-R><C-W> *<CR>
+" Doesn't work:
+"nnoremap <Leader>J :splitbelow | sview |r !ansible-doc <C-R><C-W> *<CR>
+" Remap user-specified binding to look in ansible-doc for keyword under cursor
+if exists('g:ansible_options["documentation_mapping"]')
+  exec 'nmap ' . g:ansible_options["documentation_mapping"] . ' :!ansible-doc <C-R><C-W> *<CR>'
+endif
+
+" vim:sts=2:sw=2:
+
+" dont indent after a blank line
+let g:ansible_options = {'ignore_blank_lines': 0}
 
 "let g:ansible_yamlKeyName = 'yamlKey'
 "let g:ansible_extra_keyworkds_highlight = 1
-let g:ansible_goto_role_paths = './roles,../_common/roles'
+"let g:ansible_goto_role_paths = './roles,../_common/roles'
 
 function! FindAnsibleRoleUnderCursor()
   if exists("g:ansible_goto_role_paths")
@@ -388,7 +441,7 @@ function! FindAnsibleRoleUnderCursor()
   endif
 endfunction
 
-au BufRead,BufNewFile */ansible/*.yml vnoremap <leader>gr :call FindAnsibleRoleUnderCursor()<CR>
+" au BufRead,BufNewFile */ansible/*.yml vnoremap <leader>gr :call FindAnsibleRoleUnderCursor()<CR>
 
 """"""""""""""""""""
 " Tmux and Terminals
@@ -449,14 +502,12 @@ nnoremap <Leader>O /OpenShift<Esc>cwRHOCP<Esc>
 """"""
 "FROM ASCIIDOC PAGE
 """"""
-"" Use bold bright fonts.
-"set background=dark
 
 " Show tabs and trailing characters.
-set listchars=tab:»·,trail:·,extends:↷,precedes:↶,nbsp:⁔
+"set listchars=tab:»·,trail:·,extends:↷,precedes:↶,nbsp:⁔
 "set listchars=tab:»·,trail:·,eol:¬,trail:␣,extends:↷,precedes:↶,nbsp:⁔
 "set listchars=eol:•,tab:→\ ,trail:␣,extends:↷,precedes:↶,nbsp:⁔
-set list
+"set list
 
 " Reformat paragraphs and list.
 "nnoremap <Leader>r gq}
@@ -470,11 +521,15 @@ set list
         "\ formatlistpat=^\\s*\\d\\+\\.\\s\\+\\\\|^\\s*<\\d\\+>\\s\\+\\\\|^\\s*[a-zA-Z.]\\.\\s\\+\\\\|^\\s*[ivxIVX]\\+\\.\\s\\+
         "\ comments=s1:/*,ex:*/,://,b:#,:%,:XCOMM,fb:-,fb:*,fb:+,fb:.,fb:>
 
+"""""""""""""""""""""""""""""""
+" Color Switcher - F8
+"""""""""""""""""""""""""""""""
+
 if v:version < 700 || exists('loaded_switchcolor') || &cp
-	finish
+  finish
 endif
 
-let loaded_switchcolor = 1
+let loaded_switchcolor = 0
 
 let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
 let s:swcolors = map(paths, 'fnamemodify(v:val, ":t:r")')

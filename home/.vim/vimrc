@@ -18,9 +18,13 @@ call plug#begin('~/.vim/plugged')
 """""
 " Language Server client
 "Plug 'neoclide/coc.nvim', {'branch': 'release'}
-Plug 'neovim/nvim-lspconfig'
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
 Plug 'nvim-lua/lsp-status.nvim'
+Plug 'neovim/nvim-lspconfig'
+Plug 'williamboman/nvim-lsp-installer'
+Plug 'kabouzeid/nvim-lspinstall'
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}  " We recommend updating the parsers on update
+Plug 'neomake/neomake'
+Plug 'hrsh7th/nvim-compe'
 
 """""
 " Kube Stuff
@@ -37,7 +41,7 @@ Plug 'flazz/vim-colorschemes'
 "Plug 'edkolev/tmuxline.vim'
 "" amazing async linter - Vim 8 only
 ""Plug 'w0rp/ale'
-""Plug '907th/vim-auto-save'
+Plug '907th/vim-auto-save'
 "Plug 'scrooloose/nerdtree'
 "Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
@@ -132,7 +136,7 @@ autocmd BufWritePre * :%s/\s\+$//e
 """"""""""""""""""""
 " Short Commands to do great things
 """"""""""""""""""""
-" <Leader>jf will JSON PRETTY-FORMAT your json.
+" <Leader>fj will JSON PRETTY-FORMAT your json.
 """"""""""""""""""""
 "nnoremap <Leader>fj :%!python -m json.tool<Enter>:set nowrap<Enter>:set ft:javascript<Enter>
 :vnoremap <Leader>fj %!python -m json.tool<Enter>
@@ -396,7 +400,7 @@ set nofoldenable
 " endings with two line endings
 :map cleanup <Esc>:%s/\s\+$//e<CR>:%s/\n\{3,}/\r\r/e<CR>
 
-" Clean up Doc Links - 
+" Clean up Doc Links -
 " delete text before [ ] and preservetext found in [ ]
 :map spp <Esc>d\[di[va[p " remove everything up to [ ] and preserve insides
 :map sap d/[<CR>di[va[p
